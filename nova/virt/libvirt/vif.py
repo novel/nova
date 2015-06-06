@@ -387,7 +387,7 @@ class LibvirtGenericVIFDriver(object):
                           {'vlan': network.get_meta('vlan'),
                            'bridge': self.get_bridge_name(vif)},
                           instance=instance)
-                linux_net.LinuxBridgeInterfaceDriver.ensure_vlan_bridge(
+                linux_net._get_interface_driver().ensure_vlan_bridge(
                                              network.get_meta('vlan'),
                                              self.get_bridge_name(vif),
                                              iface)
@@ -396,7 +396,7 @@ class LibvirtGenericVIFDriver(object):
                             network.get_meta('bridge_interface')
                 LOG.debug("Ensuring bridge %s",
                           self.get_bridge_name(vif), instance=instance)
-                linux_net.LinuxBridgeInterfaceDriver.ensure_bridge(
+                linux_net._get_interface_driver().ensure_bridge(
                                         self.get_bridge_name(vif),
                                         iface)
 
