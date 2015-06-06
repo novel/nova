@@ -148,7 +148,7 @@ class NullL3(L3Driver):
     def is_initialized(self):
         return True
 
-    def initialize_network(self, cidr):
+    def initialize_network(self, cidr, is_external):
         pass
 
     def initialize_gateway(self, network_ref):
