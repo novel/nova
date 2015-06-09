@@ -227,6 +227,9 @@ def pick_disk_driver_name(hypervisor_version, is_block_dev=False):
     :returns: driver_name or None
     """
     if CONF.libvirt.virt_type == "xen":
+        # XXX For some reason, guests under FreeBSD/xenlight fail to boot
+        # with the 'qemu' driver, so hardcore 'qemu' for now
+        return "phy"
         if is_block_dev:
             return "phy"
         else:
