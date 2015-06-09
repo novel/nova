@@ -109,6 +109,9 @@ linux_net_opts = [
     cfg.IntOpt('metadata_port',
                default=8775,
                help='The port for the metadata API port'),
+    cfg.StrOpt('firewall_manager',
+               default='nova.network.linux_net.IptablesManager',
+               help='Firewall Manager class'),
     cfg.StrOpt('iptables_top_regex',
                default='',
                help='Regular expression to match the iptables rule that '
@@ -1931,7 +1934,7 @@ class NeutronLinuxBridgeInterfaceDriver(LinuxNetInterfaceDriver):
 # provide compatibility with existing configs
 QuantumLinuxBridgeInterfaceDriver = NeutronLinuxBridgeInterfaceDriver
 
-iptables_manager = IptablesManager()
+iptables_manager = importutils.import_object(CONF.firewall_manager)
 
 
 def set_vf_interface_vlan(pci_addr, mac_addr, vlan=0):
